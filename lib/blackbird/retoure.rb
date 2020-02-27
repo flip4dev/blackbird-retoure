@@ -1,4 +1,5 @@
-require "blackbird/retoure/version"
+require 'blackbird/retoure/version'
+require 'blackbird/retoure/configuration'
 
 module Blackbird
   module Retoure
