@@ -40,4 +40,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rubocop', '~> 0.57.2'
   spec.add_development_dependency 'vcr', '~> 5.1.0'
   spec.add_development_dependency 'webmock', '~> 1.22'
+  spec.add_dependency 'activemodel', '~> 3'
 end
