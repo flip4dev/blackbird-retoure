@@ -19,7 +19,7 @@ module Blackbird
         @telephone_number = args[:telephone_number]
         @weight_in_grams = args[:weight_in_grams]
         @value = args[:value]
-        @return_document_type = args[:return_document_type] || 'BOTH'
+        @return_document_type = args[:return_document_type] || 'SHIPMENT_LABEL'
 
         self.sender_address = args[:sender_address] if args[:sender_address]
       end
