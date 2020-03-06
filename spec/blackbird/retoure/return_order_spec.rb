@@ -33,7 +33,7 @@ RSpec.describe Blackbird::Retoure::ReturnOrder do
         sender_address: {
           name1: 'Name 1',
           street_name: 'Street Name',
-          house_number: 'House Number',
+          house_number: '12345',
           post_code: 'Post Code',
           city: 'City',
           country: {
@@ -90,7 +90,7 @@ RSpec.describe Blackbird::Retoure::ReturnOrder do
       expect(return_order).to be_invalid
 
       return_order.sender_address = {
-        name1: 'Name #1', street_name: 'Street Name', house_number: 'House Number #', post_code: 'Post Code',
+        name1: 'Name #1', street_name: 'Street Name', house_number: '12345', post_code: 'Post Code',
         city: 'City', country: { country_iso_code: 'DEU' }
       }
       expect(return_order).to be_valid
@@ -98,18 +98,18 @@ RSpec.describe Blackbird::Retoure::ReturnOrder do
 
     it 'is invalid if the sender_address object is invalid too' do
       sender_address = ::Blackbird::Retoure::SimpleAddress.new(
-        name1: 'name 1', street_name: 'Street Name', house_number: 'house number', city: 'City'
+        name1: 'name 1', street_name: 'Street Name', house_number: '12345', city: 'City'
       )
       return_order = described_class.new(receiver_id: 'abcdef', sender_address: sender_address)
       expect(return_order).to be_invalid
-      expect(return_order.sender_address.errors.size).to eq 2
+      expect(return_order.sender_address.errors.size).to eq 3
     end
   end
 
   describe '#to_json' do
     it 'creates a json payload' do
       sender_address = ::Blackbird::Retoure::SimpleAddress.new(
-        name1: 'Name #1', street_name: 'Street Name', house_number: 'House Number #', post_code: 'Post Code',
+        name1: 'Name #1', street_name: 'Street Name', house_number: '12345', post_code: 'Post Code',
         city: 'City'
       )
       sender_address.country = { country_iso_code: 'DEU' }
@@ -117,7 +117,7 @@ RSpec.describe Blackbird::Retoure::ReturnOrder do
 
       expect(return_order.to_json).to eq({ receiverId: 'DE', senderAddress: { name1: 'Name #1',
                                                                               streetName: 'Street Name',
-                                                                              houseNumber: 'House Number #',
+                                                                              houseNumber: '12345',
                                                                               postCode: 'Post Code', city: 'City',
                                                                               country: { countryISOCode: 'DEU' } },
                                            returnDocumentType: 'SHIPMENT_LABEL' }.to_json)

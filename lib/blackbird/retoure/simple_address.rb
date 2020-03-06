@@ -7,7 +7,15 @@ module Blackbird
       attr_accessor :name1, :name2, :name3, :street_name, :house_number, :post_code, :city
       attr_reader :country
 
-      validates :name1, :street_name, :house_number, :post_code, :city, presence: true
+      validates :name1, :street_name, :city, presence: true, length: { in: 1..35 }
+      validates :name2, :name3, length: { in: 0..35 }
+      # Fun fact: The server can handle longer strings...
+      validates :house_number, presence: true, length: { in: 1..5 }
+      # Fun fact: Even this field is tagged as a string in the documentation
+      # the server will respond with a HTTP 500 if a non numerical character
+      # is included.
+      validates :post_code, presence: true, length: { in: 1..10 }
+
       # The DHL server expects a country object - even the documentation does not know this.
       validates :country, presence: true
       validate :country, :validate_country

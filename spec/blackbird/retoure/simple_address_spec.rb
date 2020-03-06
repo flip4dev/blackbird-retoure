@@ -6,8 +6,8 @@ RSpec.describe Blackbird::Retoure::SimpleAddress do
         name2: 'Name #2',
         name3: 'Name #3',
         street_name: 'Street',
-        house_number: 'House Number #',
-        post_code: 'Post Code #',
+        house_number: '12345',
+        post_code: 'Post Code',
         city: 'City'
       )
 
@@ -15,8 +15,8 @@ RSpec.describe Blackbird::Retoure::SimpleAddress do
       expect(address.name2).to eq 'Name #2'
       expect(address.name3).to eq 'Name #3'
       expect(address.street_name).to eq 'Street'
-      expect(address.house_number).to eq 'House Number #'
-      expect(address.post_code).to eq 'Post Code #'
+      expect(address.house_number).to eq '12345'
+      expect(address.post_code).to eq 'Post Code'
       expect(address.city).to eq 'City'
     end
 
@@ -26,8 +26,8 @@ RSpec.describe Blackbird::Retoure::SimpleAddress do
         name2: 'Name #2',
         name3: 'Name #3',
         street_name: 'Street',
-        house_number: 'House Number #',
-        post_code: 'Post Code #',
+        house_number: '12345',
+        post_code: 'Post Code',
         city: 'City',
         country: { country_iso_code: 'DEU' }
       )
@@ -36,8 +36,8 @@ RSpec.describe Blackbird::Retoure::SimpleAddress do
       expect(address.name2).to eq 'Name #2'
       expect(address.name3).to eq 'Name #3'
       expect(address.street_name).to eq 'Street'
-      expect(address.house_number).to eq 'House Number #'
-      expect(address.post_code).to eq 'Post Code #'
+      expect(address.house_number).to eq '12345'
+      expect(address.post_code).to eq 'Post Code'
       expect(address.city).to eq 'City'
       expect(address.country).to be_a ::Blackbird::Retoure::Country
       expect(address.country.country_iso_code).to eq 'DEU'
@@ -66,7 +66,7 @@ RSpec.describe Blackbird::Retoure::SimpleAddress do
   describe '#valid?' do
     it 'is only valid when certain fields are set' do
       address = described_class.new(
-        name1: 'Name #1', street_name: 'Street Name', house_number: 'House Number #', post_code: 'Post Code',
+        name1: 'Name #1', street_name: 'Street Name', house_number: '12345', post_code: 'Post Code',
         city: 'City', country: { country_iso_code: 'DEU' }
       )
       expect(address).to be_valid
@@ -81,7 +81,7 @@ RSpec.describe Blackbird::Retoure::SimpleAddress do
       address.street_name = 'Street Name'
       expect(address).not_to be_valid
 
-      address.house_number = 'House #'
+      address.house_number = '12345'
       expect(address).not_to be_valid
 
       address.post_code = 'Post Code'
@@ -96,7 +96,7 @@ RSpec.describe Blackbird::Retoure::SimpleAddress do
 
     it 'is invalid as the country object is invalid' do
       address = described_class.new(
-        name1: 'Name #1', street_name: 'Street Name', house_number: 'House Number #', post_code: 'Post Code',
+        name1: 'Name #1', street_name: 'Street Name', house_number: '12345', post_code: 'Post Code',
         city: 'City', country: { country_iso_code: 'DEU' }
       )
       expect(address).to be_valid
@@ -104,20 +104,60 @@ RSpec.describe Blackbird::Retoure::SimpleAddress do
       address.country = { country_iso_code: 'DE' }
       expect(address).not_to be_valid
     end
+
+    it 'validates required field lengths' do
+      address = described_class.new(
+        name1: 'Name #1', street_name: 'Street Name', house_number: '12345', post_code: 'Post Code',
+        city: 'City', country: { country_iso_code: 'DEU' }
+      )
+      expect(address).to be_valid
+
+      %w[name1 street_name city].each do |longer_fields|
+        address.send("#{longer_fields}=", rand(36**40).to_s(36))
+        expect(address).not_to be_valid
+        address.send("#{longer_fields}=", rand(36**35).to_s(36))
+        expect(address).to be_valid
+      end
+
+      address.house_number = '1234567890'
+      expect(address).not_to be_valid
+      address.house_number = '12345'
+      expect(address).to be_valid
+
+      address.post_code = '12345678901234567890'
+      expect(address).not_to be_valid
+      address.post_code = '1234512345'
+      expect(address).to be_valid
+    end
+
+    it 'validates also the length of optional fields' do
+      address = described_class.new(
+        name1: 'Name #1', street_name: 'Street Name', house_number: '12345', post_code: 'Post Code',
+        city: 'City', country: { country_iso_code: 'DEU' }
+      )
+      expect(address).to be_valid
+
+      %w[name2 name3].each do |longer_fields|
+        address.send("#{longer_fields}=", rand(36**40).to_s(36))
+        expect(address).not_to be_valid
+        address.send("#{longer_fields}=", '')
+        expect(address).to be_valid
+      end
+    end
   end
 
   describe '#to_json' do
     it 'creates a json payload' do
       address = described_class.new(
-        name1: 'Name #1', street_name: 'Street Name', house_number: 'House Number #', post_code: 'Post Code',
+        name1: 'Name #1', street_name: 'Street Name', house_number: '12345', post_code: 'Post Code',
         city: 'City'
       )
       address.country = { country_iso_code: 'DEU' }
 
       expect(address.to_json).to eq({
-        name1: 'Name #1', streetName: 'Street Name', houseNumber: 'House Number #',
-        postCode: 'Post Code', city: 'City', country: { countryISOCode: 'DEU' }
-      }.to_json)
+                                      name1: 'Name #1', streetName: 'Street Name', houseNumber: '12345',
+                                      postCode: 'Post Code', city: 'City', country: { countryISOCode: 'DEU' }
+                                    }.to_json)
     end
   end
 end

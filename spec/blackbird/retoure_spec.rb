@@ -10,7 +10,7 @@ RSpec.describe Blackbird::Retoure do
         sender_address: {
           name1: 'Name #1',
           street_name: 'Street Name',
-          house_number: 'House Number #',
+          house_number: '12345',
           post_code: '12345',
           city: 'City',
           country: { country_iso_code: 'DEU' }
