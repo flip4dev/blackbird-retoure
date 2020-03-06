@@ -58,6 +58,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 ## Caveats
 
 - Customs documents are not supported. Feel free to add them.
+- A response class instead of passing of the Net::HTTP objects (tbd)
 
 ## Contributing
 

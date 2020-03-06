@@ -67,7 +67,7 @@ RSpec.describe Blackbird::Retoure::SimpleAddress do
     it 'is only valid when certain fields are set' do
       address = described_class.new(
         name1: 'Name #1', street_name: 'Street Name', house_number: 'House Number #', post_code: 'Post Code',
-        city: 'City'
+        city: 'City', country: { country_iso_code: 'DEU' }
       )
       expect(address).to be_valid
     end
@@ -88,13 +88,16 @@ RSpec.describe Blackbird::Retoure::SimpleAddress do
       expect(address).not_to be_valid
 
       address.city = 'City'
+      expect(address).not_to be_valid
+
+      address.country = { country_iso_code: 'DEU' }
       expect(address).to be_valid
     end
 
     it 'is invalid as the country object is invalid' do
       address = described_class.new(
         name1: 'Name #1', street_name: 'Street Name', house_number: 'House Number #', post_code: 'Post Code',
-        city: 'City'
+        city: 'City', country: { country_iso_code: 'DEU' }
       )
       expect(address).to be_valid
 
@@ -111,12 +114,10 @@ RSpec.describe Blackbird::Retoure::SimpleAddress do
       )
       address.country = { country_iso_code: 'DEU' }
 
-      expect(address.to_json).to eq(
-        {
-          name1: 'Name #1', streetName: 'Street Name', houseNumber: 'House Number #',
-          postCode: 'Post Code', city: 'City', country: { countryISOCode: 'DEU' }
-        }.to_json
-      )
+      expect(address.to_json).to eq({
+        name1: 'Name #1', streetName: 'Street Name', houseNumber: 'House Number #',
+        postCode: 'Post Code', city: 'City', country: { countryISOCode: 'DEU' }
+      }.to_json)
     end
   end
 end

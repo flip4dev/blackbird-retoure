@@ -18,7 +18,7 @@ RSpec.describe Blackbird::Retoure::ReturnOrder do
       expect(return_order.telephone_number).to eq '0123456789'
       expect(return_order.weight_in_grams).to eq 400
       expect(return_order.value).to eq 123.45
-      expect(return_order.return_document_type).to eq 'BOTH'
+      expect(return_order.return_document_type).to eq 'SHIPMENT_LABEL'
     end
 
     it 'also sets the sender address and country' do
@@ -91,7 +91,7 @@ RSpec.describe Blackbird::Retoure::ReturnOrder do
 
       return_order.sender_address = {
         name1: 'Name #1', street_name: 'Street Name', house_number: 'House Number #', post_code: 'Post Code',
-        city: 'City'
+        city: 'City', country: { country_iso_code: 'DEU' }
       }
       expect(return_order).to be_valid
     end
@@ -102,9 +102,7 @@ RSpec.describe Blackbird::Retoure::ReturnOrder do
       )
       return_order = described_class.new(receiver_id: 'abcdef', sender_address: sender_address)
       expect(return_order).to be_invalid
-
-      return_order.sender_address.post_code = 'Post Code'
-      expect(return_order).to be_valid
+      expect(return_order.sender_address.errors.size).to eq 2
     end
   end
 
@@ -122,7 +120,7 @@ RSpec.describe Blackbird::Retoure::ReturnOrder do
                                                                               houseNumber: 'House Number #',
                                                                               postCode: 'Post Code', city: 'City',
                                                                               country: { countryISOCode: 'DEU' } },
-                                           returnDocumentType: 'BOTH' }.to_json)
+                                           returnDocumentType: 'SHIPMENT_LABEL' }.to_json)
     end
   end
 end

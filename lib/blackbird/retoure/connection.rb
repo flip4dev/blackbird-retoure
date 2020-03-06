@@ -8,9 +8,9 @@ module Blackbird
       attr_reader :username, :password, :environment
 
       ENDPOINTS = {
-                    production: '',
-                    sandbox: 'https://cig.dhl.de/services/sandbox/rest/returns/'
-                  }.freeze
+        production: 'https://cig.dhl.de/services/sandbox/rest/returns/',
+        sandbox: 'https://cig.dhl.de/services/sandbox/rest/returns/'
+      }.freeze
 
       # Public: Initialize the Blackbird::Retoure::Connection object with the
       # needed configuration.
@@ -33,7 +33,7 @@ module Blackbird
                                         'accept' => 'application/json'
           request.basic_auth @username, @password
 
-          request['DPDHL-User-Authentication-Token'] = dpdhl_user_authentication_token
+          request['DPDHL-User-Authentication-Token'] = dpdhl_token
 
           http.request request, payload
         end
@@ -46,7 +46,7 @@ module Blackbird
       # token will be returned
       #
       # Returns a String.
-      def dpdhl_user_authentication_token
+      def dpdhl_token
         if @environment != :sandbox
           Base64.strict_encode64("#{@username}:#{@password}")
         else

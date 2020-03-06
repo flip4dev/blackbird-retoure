@@ -3,6 +3,7 @@
 This project uses [Semantic Versioning](https://semver.org).
 
 ## [Unreleased][unreleased]
+* Added new functions to retrieve a shipping label, a qr code or both documents
 * Added the connection class and the basic response object
 * Added a filter for sensitive data to vcr
 * Added the base classes

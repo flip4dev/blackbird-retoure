@@ -8,7 +8,7 @@ module Blackbird
       attr_reader :sender_address
 
       validates :receiver_id, :sender_address, presence: true
-      validates :return_document_type, inclusion: %w[SHIPMENT_LABEL, QR_LABEL BOTH]
+      validates :return_document_type, inclusion: %w[SHIPMENT_LABEL QR_LABEL BOTH]
       validate :sender_address, :validate_sender_address
 
       def initialize(args = {})
@@ -36,19 +36,11 @@ module Blackbird
       #
       # Returns a String representing the JSON payload.
       def to_json
-        payload = {
-          receiverId: @receiver_id,
-          customerReference: @customer_reference,
-          shipmentReference: @shipment_reference,
-          email: @email,
-          telephoneNumber: @telephone_number,
-          weightInGrams: @weight_in_grams,
-          value: @value,
-          senderAddress: JSON.parse(@sender_address.to_json),
-          returnDocumentType: @return_document_type
-        }
-
-        payload.reject { |_k, v| v.blank? }.to_json
+        {
+          receiverId: @receiver_id, customerReference: @customer_reference, shipmentReference: @shipment_reference,
+          email: @email, telephoneNumber: @telephone_number, weightInGrams: @weight_in_grams, value: @value,
+          senderAddress: JSON.parse(@sender_address.to_json), returnDocumentType: @return_document_type
+        }.reject { |_k, v| v.blank? }.to_json
       end
 
       private

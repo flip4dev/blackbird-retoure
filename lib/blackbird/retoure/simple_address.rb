@@ -8,6 +8,8 @@ module Blackbird
       attr_reader :country
 
       validates :name1, :street_name, :house_number, :post_code, :city, presence: true
+      # The DHL server expects a country object - even the documentation does not know this.
+      validates :country, presence: true
       validate :country, :validate_country
 
       def initialize(args = {})

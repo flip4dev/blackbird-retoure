@@ -5,8 +5,8 @@ require 'blackbird/retoure/version'
 Gem::Specification.new do |spec|
   spec.name = 'blackbird-retoure'
   spec.version = Blackbird::Retoure::VERSION
-  spec.authors = ['Dennis Trabandt']
-  spec.email = ['dennis.trabandt@flip4new.de']
+  spec.authors = ['Flip4Dev']
+  spec.email = ['developers@flip4new.de']
 
   spec.summary = 'Blackbird::Retoure provides an Ruby implementation of the DHL Retoure REST API'
   spec.homepage = 'https://github.com/flip4dev/blackbird-retoure/'
