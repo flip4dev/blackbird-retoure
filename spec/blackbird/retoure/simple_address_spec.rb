@@ -155,9 +155,9 @@ RSpec.describe Blackbird::Retoure::SimpleAddress do
       address.country = { country_iso_code: 'DEU' }
 
       expect(address.to_json).to eq({
-                                      name1: 'Name #1', streetName: 'Street Name', houseNumber: '12345',
-                                      postCode: 'Post Code', city: 'City', country: { countryISOCode: 'DEU' }
-                                    }.to_json)
+        name1: 'Name #1', streetName: 'Street Name', houseNumber: '12345',
+        postCode: 'Post Code', city: 'City', country: { countryISOCode: 'DEU' }
+      }.to_json)
     end
   end
 end
