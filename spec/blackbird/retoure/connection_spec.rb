@@ -18,4 +18,21 @@ RSpec.describe Blackbird::Retoure::Connection, vcr: true do
       expect(connection.connect(retoure.to_json)).to be_a Net::HTTPInternalServerError
     end
   end
+
+  describe 'private methods' do
+    context '#dpdhl_token' do
+      it 'returns the token for the sandbox environment' do
+        expect(described_class.new.send(:dpdhl_token)).to eq described_class::SANDBOX_DPDHL_TOKEN
+      end
+
+      it 'creates the correct token for the production environment' do
+        connection = described_class.new
+        connection.instance_variable_set(:@app_id, 'app_id')
+        connection.instance_variable_set(:@app_token, 'app_token')
+        connection.instance_variable_set(:@environment, :production)
+
+        expect(connection.send(:dpdhl_token)).to eq 'YXBwX2lkOmFwcF90b2tlbg=='
+      end
+    end
+  end
 end

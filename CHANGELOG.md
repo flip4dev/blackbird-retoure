@@ -3,6 +3,7 @@
 This project uses [Semantic Versioning](https://semver.org).
 
 ## [Unreleased][unreleased]
+* Added missing configuration options (app_id and app_token) for the production environment
 * Added a fix for validations not working with activemodel ~> 4
 * Changed the dependency of active model
 * Added validations to the simple address object

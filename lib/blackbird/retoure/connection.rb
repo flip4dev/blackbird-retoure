@@ -12,6 +12,8 @@ module Blackbird
         sandbox: 'https://cig.dhl.de/services/sandbox/rest/returns/'
       }.freeze
 
+      SANDBOX_DPDHL_TOKEN = 'MjIyMjIyMjIyMl9jdXN0b21lcjp1QlFiWjYyIVppQmlWVmJoYw=='.freeze
+
       # Public: Initialize the Blackbird::Retoure::Connection object with the
       # needed configuration.
       #
@@ -19,6 +21,8 @@ module Blackbird
       def initialize
         @username = ::Blackbird::Retoure.configuration.username
         @password = ::Blackbird::Retoure.configuration.password
+        @app_id = ::Blackbird::Retoure.configuration.app_id
+        @app_token = ::Blackbird::Retoure.configuration.app_token
         @environment = ::Blackbird::Retoure.configuration.environment
       end
 
@@ -48,9 +52,9 @@ module Blackbird
       # Returns a String.
       def dpdhl_token
         if @environment != :sandbox
-          Base64.strict_encode64("#{@username}:#{@password}")
+          Base64.strict_encode64("#{@app_id}:#{@app_token}")
         else
-          'MjIyMjIyMjIyMl9jdXN0b21lcjp1QlFiWjYyIVppQmlWVmJoYw=='
+          SANDBOX_DPDHL_TOKEN
         end
       end
     end

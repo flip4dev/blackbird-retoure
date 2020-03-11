@@ -31,8 +31,11 @@ Add an initializer to your application and configure the gem as follows:
 
 ```ruby
 Blackbird::Retoure.configure do |config|
-  config.username = 'USERNAME'
-  config.password = 'PASSWORD'
+  config.username = 'Username of the system user'
+  config.password = 'Password of the system user'
+  config.app_token = 'Application token (CIG'
+  config.app_id = 'Application ID (CIG)'
+  config.environment = :production
 end
 ```
 #### Sandbox
