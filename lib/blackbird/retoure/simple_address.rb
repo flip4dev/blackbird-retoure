@@ -8,7 +8,7 @@ module Blackbird
       attr_reader :country
 
       validates :name1, :street_name, :city, presence: true, length: { in: 1..35 }
-      validates :name2, :name3, length: { in: 0..35 }
+      validates :name2, :name3, length: { in: 0..35 }, allow_nil: true
       # Fun fact: The server can handle longer strings...
       validates :house_number, presence: true, length: { in: 1..5 }
       # Fun fact: Even this field is tagged as a string in the documentation

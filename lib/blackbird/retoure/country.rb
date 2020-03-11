@@ -14,7 +14,7 @@ module Blackbird
       attr_accessor :country_iso_code, :country, :state
 
       validates :country_iso_code, presence: true, length: { is: 3 }
-      validates :country, :state, length: { in: 0..30 }
+      validates :country, :state, length: { in: 0..30 }, allow_nil: true
 
       def initialize(args = {})
         @country_iso_code = args[:country_iso_code]

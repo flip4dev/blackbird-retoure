@@ -10,7 +10,7 @@ RSpec.describe Blackbird::Retoure::Country do
 
   describe '#valid?' do
     it 'is invalid as no fields are set' do
-      expect(described_class.new()).not_to be_valid
+      expect(described_class.new).not_to be_valid
     end
 
     it 'is invalid as field lengths are not met' do
