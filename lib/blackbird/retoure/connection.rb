@@ -8,7 +8,7 @@ module Blackbird
       attr_reader :username, :password, :environment
 
       ENDPOINTS = {
-        production: 'https://cig.dhl.de/services/sandbox/rest/returns/',
+        production: 'https://cig.dhl.de/services/production/rest/returns/',
         sandbox: 'https://cig.dhl.de/services/sandbox/rest/returns/'
       }.freeze
 

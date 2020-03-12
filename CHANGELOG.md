@@ -3,6 +3,7 @@
 This project uses [Semantic Versioning](https://semver.org).
 
 ## [Unreleased][unreleased]
+* Fixed the production url for the retoure
 * Added missing configuration options (app_id and app_token) for the production environment
 * Added a fix for validations not working with activemodel ~> 4
 * Changed the dependency of active model
