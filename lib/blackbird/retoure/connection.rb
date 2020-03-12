@@ -35,9 +35,9 @@ module Blackbird
           request = Net::HTTP::Post.new uri,
                                         'content-type' => 'application/json',
                                         'accept' => 'application/json'
-          request.basic_auth @username, @password
+          request.basic_auth *authentication_data(@environment)
 
-          request['DPDHL-User-Authentication-Token'] = dpdhl_token
+          request['DPDHL-User-Authentication-Token'] = dpdhl_token(@environment)
 
           http.request request, payload
         end
@@ -45,14 +45,37 @@ module Blackbird
 
       private
 
+      # Internal: Return the correct authentication data needed for the HTTP
+      # Basic authentication.
+      #
+      # environment - The String or Symbol environment that is going to be
+      # used for the CIG authentication.
+      #
+      # Returns an Array containing the username and the password to use for
+      #   the CIG HTTP Basic authentication.
+      def authentication_data(environment)
+        if environment.to_sym == :sandbox
+          username = ::Blackbird::Retoure.configuration.username
+          password = ::Blackbird::Retoure.configuration.password
+        else
+          username = ::Blackbird::Retoure.configuration.app_id
+          password = ::Blackbird::Retoure.configuration.app_token
+        end
+
+        [username, password]
+      end
+
       # Internal: Generate the DPDHL User Authentication Token depending on
       # the environment. If it is the sandbox then a fixed authentication
       # token will be returned
       #
+      # environment - The String or Symbol environment that is going to be
+      # used for the CIG authentication.
+      #
       # Returns a String.
-      def dpdhl_token
-        if @environment != :sandbox
-          Base64.strict_encode64("#{@app_id}:#{@app_token}")
+      def dpdhl_token(environment)
+        if environment.to_sym != :sandbox
+          Base64.strict_encode64("#{@username}:#{@password}")
         else
           SANDBOX_DPDHL_TOKEN
         end
