@@ -33,20 +33,20 @@ Add an initializer to your application and configure the gem as follows:
 Blackbird::Retoure.configure do |config|
   config.username = 'Username of the system user'
   config.password = 'Password of the system user'
-  config.app_token = 'Application token (CIG'
-  config.app_id = 'Application ID (CIG)'
+  config.app_token = 'Application token for production environment (CIG)'
+  config.app_id = 'Application ID for production environment (CIG)'
   config.environment = :production
 end
 ```
 #### Sandbox
-For `USERNAME` use your developer id of your developer account and for `PASSWORD` the matching password of your developer account.
+For `username` use your developer id of your developer account and for `password` the matching password of your developer account.
+
+The settings for `app_token` and `app_id` doesn't need to be set in a sandbox environment.
 
 #### Production
-For `USERNAME` use your AppId and for the `PASSWORD` use the one time token.
+For `username` use your AppId and for the `password` use the one time token.
 
-#### Optional configuration options
-
-TBD
+The settings for `app_token` and `app_id` have to be provided in a production environment. 
 
 ## Development
 
@@ -60,12 +60,12 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Caveats
 
-- Customs documents are not supported. Feel free to add them.
+- Customs documents are currently not supported.
 - A response class instead of passing of the Net::HTTP objects (tbd)
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/blackbird-retoure. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/flip4dev/blackbird-retoure. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 ## License
 
