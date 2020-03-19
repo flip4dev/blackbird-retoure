@@ -35,7 +35,7 @@ module Blackbird
           request = Net::HTTP::Post.new uri,
                                         'content-type' => 'application/json',
                                         'accept' => 'application/json'
-          request.basic_auth *authentication_data(@environment)
+          request.basic_auth(*authentication_data(@environment))
 
           request['DPDHL-User-Authentication-Token'] = dpdhl_token(@environment)
 

@@ -1,5 +1,55 @@
 module Blackbird
   module Retoure
+    # Public: This class represents the ReturnOrder object of the DHL API.
+    # It validated the required fields for the API like the receiverId,
+    # returnDocumentType and the senderAddress.
+    #
+    # receiver_id = The id of the return receiver.
+    # customer_reference = A customer reference number (optional)
+    # shipment_reference = Shipment reference (optional)
+    # email = E-Mail address of the customer (optional)
+    # telephone_number = Telephone number of the customer (optional)
+    # weight_in_grams = The weight of the package (optional)
+    # value = The value of the goods (optional)
+    # return_document_type = The document type. If not provided the
+    #   value SHIPMENT_TYPE will be set.
+    # sender_address = A Hash or a BlackBird::Retoure::SenderAddress object.
+    #
+    # Examples
+    #
+    #   # Create a ReturnOrder object that requests a single shipping label
+    #   Blackbird::Retoure::ReturnOrder.new(
+    #     receiver_id: 'DE',
+    #     sender_address: {
+    #       name1: 'Name #1',
+    #       street_name: 'Street Name',
+    #       house_number: '12345',
+    #       post_code: 'Post Code',
+    #       city: 'City',
+    #       country: {
+    #         country_iso_code: 'DEU'
+    #       }
+    #     }
+    #   )
+    #   # => <#Blackbird::Retoure::ReturnOrder @receiver_id => 'DE', ...>
+    #
+    #   # Create just a QR label
+    #   sender_address = Blackbird::Retoure::SenderAddress.new(
+    #     name1: 'Name #1',
+    #     streetName: 'Street Name',
+    #     houseNumber: '12345',
+    #     postCode: 'Post Code',
+    #     city: 'City',
+    #     country: {
+    #       countryISOCode: 'DEU'
+    #     }
+    #   )
+    #   Blackbird::Retoure::ReturnOrder.new(
+    #     receiver_id: 'DE',
+    #     senderAddress: sender_address,
+    #     return_document_type: 'QR_LABEL'
+    #   )
+    #   # => <#Blackbird::Retoure::ReturnOrder @receiver_id => 'DE', ...>
     class ReturnOrder
       include ::ActiveModel::Validations
 
