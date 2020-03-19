@@ -48,6 +48,61 @@ For `username` use your AppId and for the `password` use the one time token.
 
 The settings for `app_token` and `app_id` have to be provided in a production environment. 
 
+### Label creation
+
+#### Data validation
+The objects `Blackbird::Retoure::Country`, `Blackbird::Retoure::ReturnOrder` and `Blackbird::Retoure::ReturnOrder` as
+well `Blackbord::Retoure::SimpleAddress` uses `ActiveModel::Validations` to ensure data validations.
+
+Error messages can then be accessed by the `#error` method.
+
+#### Minimum amount of data needed
+
+```ruby
+args = {
+  receiver_id: 'DE',
+  sender_address: {
+    name1: 'Name #1',
+    street_name: 'Street Name',
+    house_number: 'House Number #',
+    post_code: '12345',
+    city: 'City',
+    country: { country_iso_code: 'DEU' }
+  }
+}
+```
+#### Retrieve a single shipping label with the least amount of data.
+```ruby
+shipping_label = Blackbird::Retoure.shipping_label(args)
+```
+#### Just retrieve a QR code
+```ruby 
+qr_code = Blackbird::Retoure.qr_code(args)
+```
+#### Receive both documents (shipping label and qr code)
+```ruby
+both_documents = Blackbird::Retoure.both(args)
+```
+#### Return object
+The DHL API returns a JSON object consisting of the following data:
+```json
+{
+  "shipmentNumber": "Shipping number",
+  "labelData": "Label data - base64 encoded",
+  "qrLabelData": "QR label data - base64 encoded",
+  "routingCode": "Routing code"
+}
+```
+If an error happens you will receive a different structure:
+```json
+{
+  "statusCode": "Error status code (e.g. 500)",
+  "statusText": "Error message"
+}
+```
+
+To process this data you have to manually parse it.
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies.
