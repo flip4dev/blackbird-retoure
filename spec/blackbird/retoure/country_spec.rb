@@ -43,13 +43,13 @@ RSpec.describe Blackbird::Retoure::Country do
       country = described_class.new(country_iso_code: 'DEU')
       expect(country.to_json).to eq({ countryISOCode: 'DEU' }.to_json)
 
-      country.country = 'Country'
+      country.instance_variable_set(:@country, 'Country')
       expect(country.to_json).to eq({ countryISOCode: 'DEU', country: 'Country' }.to_json)
 
-      country.state = 'State'
+      country.instance_variable_set(:@state, 'State')
       expect(country.to_json).to eq({ countryISOCode: 'DEU', country: 'Country', state: 'State' }.to_json)
 
-      country.country = nil
+      country.instance_variable_set(:@country, nil)
       expect(country.to_json).to eq({ countryISOCode: 'DEU', state: 'State' }.to_json)
     end
   end

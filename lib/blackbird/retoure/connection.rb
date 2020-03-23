@@ -5,8 +5,6 @@ module Blackbird
   module Retoure
     # Public: Connect to the DHL API an request the shipping label.
     class Connection
-      attr_reader :username, :password, :environment
-
       ENDPOINTS = {
         production: 'https://cig.dhl.de/services/production/rest/returns/',
         sandbox: 'https://cig.dhl.de/services/sandbox/rest/returns/'
@@ -29,6 +27,14 @@ module Blackbird
       # Public: Request the DHL API with the given payload.
       #
       # Returns a Net::HTTPCreated if the label has ben successfully created
+      # Returns a Net::HTTPBadRequest if there are errors within the given data
+      #   that is not being validated by this gem.
+      # Returns a Net::HTTPInternalServerError if there is an error happening
+      #   within the DHL Server. This can happen in certain (undocumented)
+      #   situations within the payload. This gem tries to prevent such
+      #   situations for known issues.
+      # Raises an ::Blackbird::Retoure::InvalidDataError if there are any
+      #   errors in the given data.
       def connect(payload)
         uri = URI.parse(ENDPOINTS[@environment])
         Net::HTTP.start(uri.host, uri.port, use_ssl: true) do |http|
@@ -54,15 +60,7 @@ module Blackbird
       # Returns an Array containing the username and the password to use for
       #   the CIG HTTP Basic authentication.
       def authentication_data(environment)
-        if environment.to_sym == :sandbox
-          username = ::Blackbird::Retoure.configuration.username
-          password = ::Blackbird::Retoure.configuration.password
-        else
-          username = ::Blackbird::Retoure.configuration.app_id
-          password = ::Blackbird::Retoure.configuration.app_token
-        end
-
-        [username, password]
+        environment.to_sym == :sandbox ? [@username, @password] : [@app_id, @app_token]
       end
 
       # Internal: Generate the DPDHL User Authentication Token depending on

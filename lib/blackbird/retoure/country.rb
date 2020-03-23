@@ -11,7 +11,7 @@ module Blackbird
     class Country
       include ::ActiveModel::Validations
 
-      attr_accessor :country_iso_code, :country, :state
+      attr_reader :country_iso_code, :country, :state
 
       validates :country_iso_code, presence: true, length: { is: 3 }
       validates :country, :state, length: { in: 0..30 }, allow_nil: true

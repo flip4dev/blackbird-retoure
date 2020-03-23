@@ -75,19 +75,19 @@ RSpec.describe Blackbird::Retoure::SimpleAddress do
     it 'is invalid as required fields are not set' do
       address = described_class.new
 
-      address.name1 = 'Name #1'
+      address.instance_variable_set(:@name1, 'Name #1')
       expect(address).not_to be_valid
 
-      address.street_name = 'Street Name'
+      address.instance_variable_set(:@street_name, 'Street Name')
       expect(address).not_to be_valid
 
-      address.house_number = '12345'
+      address.instance_variable_set(:@house_number, '12345')
       expect(address).not_to be_valid
 
-      address.post_code = 'Post Code'
+      address.instance_variable_set(:@post_code, 'Post Code')
       expect(address).not_to be_valid
 
-      address.city = 'City'
+      address.instance_variable_set(:@city, 'City')
       expect(address).not_to be_valid
 
       address.country = { country_iso_code: 'DEU' }
@@ -112,21 +112,22 @@ RSpec.describe Blackbird::Retoure::SimpleAddress do
       )
       expect(address).to be_valid
 
-      %w[name1 street_name city].each do |longer_fields|
-        address.send("#{longer_fields}=", rand(36**40).to_s(36))
+      %w[@name1 @street_name @city].each do |longer_fields|
+        address.instance_variable_set(longer_fields.to_sym, rand(36**40).to_s(36))
         expect(address).not_to be_valid
-        address.send("#{longer_fields}=", rand(36**35).to_s(36))
+        # address.send("#{longer_fields}=", rand(36**35).to_s(36))
+        address.instance_variable_set(longer_fields.to_sym, rand(36**35).to_s(36))
         expect(address).to be_valid
       end
 
-      address.house_number = '1234567890'
+      address.instance_variable_set(:@house_number, '1234567890')
       expect(address).not_to be_valid
-      address.house_number = '12345'
+      address.instance_variable_set(:@house_number, '12345')
       expect(address).to be_valid
 
-      address.post_code = '12345678901234567890'
+      address.instance_variable_set(:@post_code, '12345678901234567890')
       expect(address).not_to be_valid
-      address.post_code = '1234512345'
+      address.instance_variable_set(:@post_code, '1234512345')
       expect(address).to be_valid
     end
 
@@ -137,10 +138,10 @@ RSpec.describe Blackbird::Retoure::SimpleAddress do
       )
       expect(address).to be_valid
 
-      %w[name2 name3].each do |longer_fields|
-        address.send("#{longer_fields}=", rand(36**40).to_s(36))
+      %w[@name2 @name3].each do |longer_fields|
+        address.instance_variable_set(longer_fields.to_sym, rand(36**40).to_s(36))
         expect(address).not_to be_valid
-        address.send("#{longer_fields}=", '')
+        address.instance_variable_set(longer_fields.to_sym, '')
         expect(address).to be_valid
       end
     end

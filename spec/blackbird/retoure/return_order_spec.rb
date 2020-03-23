@@ -86,7 +86,7 @@ RSpec.describe Blackbird::Retoure::ReturnOrder do
       return_order = described_class.new
       expect(return_order).to be_invalid
 
-      return_order.receiver_id = 'abcde'
+      return_order.instance_variable_set(:@receiver_id, 'abcde')
       expect(return_order).to be_invalid
 
       return_order.sender_address = {

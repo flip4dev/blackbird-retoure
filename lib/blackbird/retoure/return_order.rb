@@ -53,9 +53,8 @@ module Blackbird
     class ReturnOrder
       include ::ActiveModel::Validations
 
-      attr_accessor :receiver_id, :customer_reference, :shipment_reference, :email, :telephone_number,
-                    :weight_in_grams, :value, :return_document_type
-      attr_reader :sender_address
+      attr_reader :receiver_id, :customer_reference, :shipment_reference, :email, :telephone_number,
+                  :weight_in_grams, :value, :return_document_type, :sender_address
 
       validates :receiver_id, :sender_address, presence: true
       validates :return_document_type, inclusion: %w[SHIPMENT_LABEL QR_LABEL BOTH]
@@ -69,7 +68,7 @@ module Blackbird
         @telephone_number = args[:telephone_number]
         @weight_in_grams = args[:weight_in_grams]
         @value = args[:value]
-        @return_document_type = args[:return_document_type] || 'SHIPMENT_LABEL'
+        @return_document_type = args.fetch(:return_document_type, 'SHIPMENT_LABEL')
 
         self.sender_address = args[:sender_address] if args[:sender_address]
       end
