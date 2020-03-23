@@ -26,6 +26,24 @@ module Blackbird
 
       # Public: Request the DHL API with the given payload.
       #
+      # payload - String encoded JSON object that is going to be sent to DHL.
+      #
+      # Examples
+      #   payload = {
+      #     receiver_id: 'DE',
+      #     sender_address: {
+      #       name1: 'Name #1',
+      #       street_name: 'Street Name',
+      #       house_number: 'House Number #',
+      #       post_code: '12345',
+      #       city: 'City',
+      #       country: { country_iso_code: 'DEU' }
+      #     }
+      #   }.to_json
+      #
+      #   ::Blackbird::Retoure::Connection.new.connect(payload)
+      #   # => <#Net::HTTPCreated ...>
+      #
       # Returns a Net::HTTPCreated if the label has ben successfully created
       # Returns a Net::HTTPBadRequest if there are errors within the given data
       #   that is not being validated by this gem.
