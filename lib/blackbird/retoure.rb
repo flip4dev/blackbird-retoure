@@ -4,6 +4,9 @@ require 'blackbird/retoure/country'
 require 'blackbird/retoure/simple_address'
 require 'blackbird/retoure/return_order'
 require 'blackbird/retoure/connection'
+require 'blackbird/retoure/environments/base'
+require 'blackbird/retoure/environments/sandbox'
+require 'blackbird/retoure/environments/production'
 
 module Blackbird
   # Public: Retrieve DHL Retoure labels.

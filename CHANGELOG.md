@@ -3,6 +3,7 @@
 This project uses [Semantic Versioning](https://semver.org).
 
 ## [Unreleased][unreleased]
+* Added new classes for the different environments
 * Fixed the authentication in the production environment
 * Fixed the production url for the retoure
 * Added missing configuration options (app_id and app_token) for the production environment
