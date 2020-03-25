@@ -73,6 +73,14 @@ module Blackbird
         self.sender_address = args[:sender_address] if args[:sender_address]
       end
 
+      # Public: Add the sender address to the object. It is possible to pass
+      # a Hash or an already initialized
+      # ::Blackbird::Retoure::SenderAddress object.
+      #
+      # If a Hash is being passed a ::Blackbird::Retoure::SenderAddress will
+      # be initialized with the given data.
+      #
+      # Returns nothing.
       def sender_address=(args)
         @sender_address = if args.is_a? ::Blackbird::Retoure::SimpleAddress
                             args
