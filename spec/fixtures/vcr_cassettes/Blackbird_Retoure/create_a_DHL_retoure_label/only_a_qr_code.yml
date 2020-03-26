@@ -1,0 +1,53 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://<HTTP_BASIC_AUTH>@cig.dhl.de/services/sandbox/rest/returns/
+    body:
+      encoding: UTF-8
+      string: '{"receiverId":"DE","senderAddress":{"name1":"Name #1","streetName":"Street
+        Name","houseNumber":"House Number #","postCode":"12345","city":"City","country":{"countryISOCode":"DEU"}},"returnDocumentType":"QR_LABEL"}'
+    headers:
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+      Host:
+      - cig.dhl.de
+      Dpdhl-User-Authentication-Token:
+      - MjIyMjIyMjIyMl9jdXN0b21lcjp1QlFiWjYyIVppQmlWVmJoYw==
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Date:
+      - Fri, 06 Mar 2020 13:35:07 GMT
+      Server:
+      - WebServer
+      Strict-Transport-Security:
+      - max-age=63072000; includeSubdomains; preload
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Dns-Prefetch-Control:
+      - 'off'
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      Content-Security-Policy:
+      - default-src 'none'; script-src 'none'; frame-src 'none'; object-src 'none'
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '3018'
+    body:
+      encoding: UTF-8
+      string: '{"shipmentNumber":"999990177710","labelData":null,"qrLabelData":"iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAIAAADTED8xAAAIS0lEQVR42u3dUXLkIAwFQN//0tkjZBFPAsetz60JNqB2jZCTfX6E+HA8lkAAIAQAQgAgBABCACAEAEIAIAQAQgAgBABCACAEAEIAIAQAQgAgBABCACAEAEL8cQBPNP5n5PLVM4uVmFp55PIgv36+b0//5+qtVwEAAAAAAACAVgDxQf4n6SNL2fjlMpGCq/++/4PlR09k7vMZCAAAAAAAAAAAAABAOHeXVjNSkq6m4/4PRsjtVJDZW4pf/c7kAQAAAAAAAAAAAADgOgCRKipeBLe2pWpXiS9gPI8BAAAAAAAAAAAAAABgqwxdqiYjTZ9y2R2pmJfudmzuAAAAAAAAAAAAAAAA0DvITEdpdZB4dylbPUcWbeahcDYDAQAAAAAAAAAAAAAoXj5bzP1s/ELM/CDlK94zyPFdyCYPAAAAAAAAAHQD6Ivyt/DWb96R0/eZGmDpM5EypjVNGzMNAAAAAAAAAAAAAID9U9ixQ/RsAyE+hbHaLnurq7pmti/SeQAAAAAAAAAAAAAAoKsILu/xkVLskuIvXkGODZJ9OsTdAgAAAAAAAAAAAABwYyMs+wZVa0epb/+OJEG2DF2tpPerZwAAAAAAAAAAAAAAbmmElWu7eAdtqZYt/2BrTi8lR/wU4extl6cAAAAAAAAAAGM1wJHvf9mz8PI2RHogO6VLdgEzX6w7v74DAAAAAAAAAAAAAPAaAOUB43uWPUheve1fC8Hy4H11ausW7yzsLY0wAAAAAAAAAAAAgI8DKDeDytVka1uqXHqOVdJ9xw+R7mF57j8jAQAAAAAAAAAAAABAuI4pr2Y5BSOr2Wo4/iCY2b54Ny3uHAAAAAAAAAAAAACAv1kE9y13XE4kYyIJEUmp+FHEcLELAAAAAAAAAAAAAEAjgPjnl7JnbHsi+xdJiEueIJEnSzmRAAAAAAAAAOBIH2Bn8tlmQuSrbfnbeSSrIv2Qsu148yRegdzYCAMAAAAAAAAAAAD4DoDIAs00E/q2ajXRl3K3tQytFf1HduH2UyAAAAAAAAAAAAAAALINoEj2/PqZnTsZ7hbt5GgEQ6Qgjizgm4pgAAAAAAAAAAAAgD8MoDyH1mqpzK9vvvFGT/xNskjalfd9yCoAAAAAAAAAAAAAALW5jTU+4ouSfYevXNfGX4Yrw3gS0fHgAAAAAAAAAIALAURuvXxGHl+4SOlS7kLE1yECPi4q0r443AcAAAAAAAAAAAAAAOBgLbt/qFxe+iMv0kQKxGyix3ehfBQBAAAAAAAAAAAAAEAjgHIStDaG+tpS5ezJ1m0/6b+3nsrpbDM0vmgAAAAAAAAAAAAAACQB3FnDxauoMvLI3CMlafyK2USfaX4BAAAAAAAAAAAAADBRk41VUfFVi+xZZO4zdxgZObLvS1MAAAAAAAAAAAAAAOBNAMpLn72r1nWYn3v5qRFvw8Xnni2IAQAAAAAAAKB74yPfBSNfYctH+5GeQN/cW1+eKSf9TP0DAAAAAAAAAAAAAMAQgGck4mmXvatnKvp2IdI8ia92CgkAAAAAAAAAAAAAAC0Admq4bBepddWWbjs+yFKilA3PV89nBwQAAAAAAAAAAAAAIACgXKvFO0fZUvvp/B9OI8cPrWcYZ3tYl74MBwAAAAAAAAAAAPBBAH01XGsF2Zd2Zc+tlWJkteODZBcQAAAAAAAAAAAAAIBpADurtl8QR96yKt/2TokZqVP7zjDiV48AuLEIBgAAAAAA4GMAZl40b73i/K2Wr15+J2qmAhnrwAAAAAAAAAAAAAAA8Jo+QDwFs+/DlIu/yO8DpJoqAzXrk/7rTK2FPgAAAAAAAAAAAAAAXUXwfO9m7CpxfuXbjsvJ7kLkAGDnMAAAAAAAAAAAAAAAgNEiOJJJ5Um2vlwe6enETxGWqsm+3I2Xp29thAEAAAAAAAAAAAB8B0Dk9xv2q+edq+9PofVO4v2s8gJmF63jJTkAAAAAAAAAuL8GiByiZ79ERt7AifxgXEX8aZK9w8NVBwAAAAAAAAAAAAAAtfwun/0/G/9F0n71/HPiL7zHi7nIcX6f52yn5dJTIAAAAAAAAAAAAICPA4h005Ymn3qtpW8v403Avg+XnyzxOvVN7wIBAAAAAAAAAAAAfAdAPDn22zHlK8avPlM9H5FT61HutCAb0xIAAAAAAAAAAAAAgGy9srSvY3dSbkv1vRCWmk5tkLio1obgjUUwAAAAAAAAAAAAwAcBHCmCs+228lXGOmh9Lbl4qR158JWnAAAAAAAAAADdAMrZs39c/YT+j53IXl5SukQaCPd0HiJbBgAAAAAAAAAAAABAF4BIwRTfhsip/BK/1gdBpEyPVJBLj6GZowgAAAAAAAAAAAAAAG5shPW1qOJLX77tVrfxdYiX5gNPSQAAAAAAAAAAAAAA/gKA/VXbqRr7ave+mvUJ/aH9SOtt/8ORbQIAAAAAAAAAAAAA4PZGWPalqHg6RjZ7aZo7STC8Tau3UZ77THEMAAAAAAAAADsA4oMsLURrxpTP/ltP35fWodxAiLc4IlYBAAAAAAAAAAAAALgOQKQQLFdRkdp9SdFq2rUeGGQP0cdyen8XAAAAAAAAAAAAAAB4PYB4C6a1v7M/eDzpWyPb02w9UQAAAAAAAAAAAAAA4PUAZpIg29zpTsH9rNrJ4yz+neYgAAAAAAAAAAAAAADHAIwN0pea5bxPVdj7Gx9pisX7mPEnSGCvAQAAAAAAAAAAAADoKxaz3ZO+2+iIyKou1bJj6VgeJHKCcksRDAAAAAAAwMcACPH2AEAAIAQAQgAgBABCACAEAEIAIAQAQgAgBABCACAEAEIAIAQAQgAgBABCACDEW+Iffrf05AnEcF8AAAAASUVORK5CYII=","routingCode":"40327653113+99000933090010"}'
+    http_version: null
+  recorded_at: Fri, 06 Mar 2020 13:35:07 GMT
+recorded_with: VCR 5.1.0

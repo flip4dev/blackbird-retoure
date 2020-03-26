@@ -13,3 +13,7 @@
 .ruby-gemset
 .ruby-version
 .idea
+/.rakeTasks
+
+vcr.log
+/spec/support/dev_environments/
